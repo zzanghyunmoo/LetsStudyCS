@@ -1,0 +1,17 @@
+# .NET build outputs
+**/bin/
+**/obj/
+
+# Test and coverage outputs
+**/TestResults/
+coverage/
+coverage.*
+*.coverage
+*.coveragexml
+
+# Visual Studio and user-specific files
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
