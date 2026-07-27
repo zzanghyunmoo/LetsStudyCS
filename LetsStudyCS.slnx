@@ -1,2 +1,3 @@
 <Solution>
+  <Project Path="chapters/01-getting-started/examples/HelloWorld/HelloWorld.csproj" />
 </Solution>
