@@ -191,9 +191,113 @@ Hello, World!
 
 다음 단계에서는 프로그램의 동작을 테스트로 확인하고, 실패하는 테스트를 직접 통과시켜 봅니다.
 
+## 11. 테스트는 무엇인가요?
+
+**테스트**는 프로그램이 약속한 결과를 만드는지 코드로 확인하는 작은 점검입니다. 사람이 매번 화면을 읽어 판단하는 대신, 실행할 때마다 같은 기준을 자동으로 확인할 수 있습니다.
+
+이 저장소는 C# 테스트 프레임워크로 **xUnit**을 사용합니다. 첫 테스트는 이미 준비되어 있으므로 새로운 문법을 외울 필요가 없습니다. 이번에는 테스트를 읽고, 실패 이유를 관찰하고, 인사말을 완성하는 데 집중합니다.
+
+[첫 테스트](tests/HelloWorld.Practice.Tests/GreetingTests.cs)는 다음과 같습니다.
+
+```csharp
+[Fact]
+public void CreateMessage_returns_hello_world()
+{
+    Assert.Equal("Hello, World!", Greeting.CreateMessage());
+}
+```
+
+지금은 두 부분만 확인합니다.
+
+- `[Fact]`는 xUnit에게 “이 동작을 테스트로 실행해 주세요”라고 알려 줍니다.
+- `Assert.Equal(expected, actual)`은 기대한 값과 실제 값을 비교합니다.
+
+이 테스트에서 expected는 `"Hello, World!"`이고 actual은 앱이 만든 인사말입니다.
+
+## 12. 완성하기: 먼저 실패 확인
+
+저장소 루트에서 다음 명령을 실행합니다.
+
+```shell
+dotnet test chapters/01-getting-started/tests/HelloWorld.Practice.Tests/HelloWorld.Practice.Tests.csproj
+```
+
+처음에는 **실패하는 것이 정상**입니다. 설정 오류가 아니라 다음 차이가 보여야 합니다.
+
+```text
+Expected: "Hello, World!"
+Actual:   ""
+```
+
+테스트는 `Hello, World!`를 기대하지만, 연습 코드가 아직 빈 글자를 돌려주기 때문입니다.
+
+[연습용 `Greeting.cs`](practice/HelloWorld/Greeting.cs)를 열어 다음 줄을 찾습니다.
+
+```csharp
+return "";
+```
+
+큰따옴표 안을 완성합니다.
+
+```csharp
+return "Hello, World!";
+```
+
+테스트를 다시 실행합니다.
+
+```shell
+dotnet test chapters/01-getting-started/tests/HelloWorld.Practice.Tests/HelloWorld.Practice.Tests.csproj
+```
+
+이번에는 테스트 한 개가 통과해야 합니다. 앱도 실행해 같은 결과를 확인합니다.
+
+```shell
+dotnet run --project chapters/01-getting-started/practice/HelloWorld/HelloWorld.csproj
+```
+
+```text
+Hello, World!
+```
+
+## 13. 직접 만들기: 나만의 인사말
+
+이번에는 red-green 순서를 스스로 한 번 더 만듭니다. 두 파일을 동시에 바꾸지 말고 다음 순서를 지키세요.
+
+1. `GreetingTests.cs`에서 기대값만 `"Hello, C#!"`처럼 자신의 인사말로 바꿉니다.
+2. 테스트를 실행해 실제 값과 달라서 다시 실패하는지 확인합니다. 이것이 red입니다.
+3. `Greeting.cs`의 인사말을 같은 문장으로 바꿉니다.
+4. 테스트를 다시 실행해 통과하는지 확인합니다. 이것이 green입니다.
+5. 연습 앱을 실행해 자신의 인사말이 출력되는지 확인합니다.
+
+테스트를 먼저 바꾸고 실패를 확인해야 테스트가 실제로 새 약속을 검사하는지 알 수 있습니다.
+
+## 14. 테스트에서 막혔을 때
+
+| 관찰한 문제 | 먼저 확인할 것 |
+| --- | --- |
+| 테스트가 발견되지 않음 | 명령에 `HelloWorld.Practice.Tests.csproj` 경로를 사용했는지 확인합니다. |
+| 기대값 불일치 한 개가 보임 | 처음 실행이라면 정상입니다. expected와 actual을 비교합니다. |
+| 빌드 오류가 보임 | 큰따옴표와 세미콜론을 지우지 않았는지 확인합니다. |
+| 고친 뒤에도 실패함 | 테스트의 기대값과 `Greeting.cs`의 인사말이 한 글자까지 같은지 확인합니다. |
+
+`class`, `public`, `static`, 메서드의 자세한 뜻은 지금 외우지 않아도 됩니다. 테스트할 수 있도록 미리 준비된 “인사말 만드는 기능”이라고만 이해하고, 표시된 인사말 한 줄에 집중하세요.
+
+## 1장 완료 체크
+
+- [ ] 프로그래밍으로 해결할 수 있는 일상 문제 하나를 설명했습니다.
+- [ ] C#과 .NET의 차이와 이 과정이 C#을 선택한 이유 하나를 설명했습니다.
+- [ ] `dotnet --version`에서 .NET 10 SDK를 확인했습니다.
+- [ ] 실행 전에 Hello World 출력을 예측하고 실제 결과와 비교했습니다.
+- [ ] 제공된 `[Fact]`와 `Assert.Equal` 테스트를 읽었습니다.
+- [ ] 의도된 실패를 확인한 뒤 인사말을 완성해 테스트를 통과시켰습니다.
+- [ ] 나만의 인사말로 red-green을 한 번 더 만들었습니다.
+
+이제 코드를 실행하고 테스트로 확인하는 방법을 알았습니다. 2장부터는 값과 변수를 배우며 낙하 블록 게임의 첫 상태를 표현합니다.
+
 ## 공식 참고 자료
 
 - [C# 둘러보기: Hello World](https://learn.microsoft.com/dotnet/csharp/tour-of-csharp/tutorials/hello-world)
 - [C# top-level statements](https://learn.microsoft.com/dotnet/csharp/fundamentals/program-structure/top-level-statements)
 - [.NET CLI 개요](https://learn.microsoft.com/dotnet/core/tools/dotnet)
 - [Visual Studio Code에서 C# 시작하기](https://code.visualstudio.com/docs/csharp/get-started)
+- [xUnit으로 C# 단위 테스트하기](https://learn.microsoft.com/dotnet/core/testing/unit-testing-csharp-with-xunit)
