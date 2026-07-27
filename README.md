@@ -1,256 +1,129 @@
-# Rust 프로그래밍 기초 실습 프로젝트
+# LetsStudyCS
 
-> **Rust 언어의 기초부터 실전 프로젝트까지**
->
-> 이 저장소는 Rust 프로그래밍 기초 강의를 위한 예제 코드와 실습 프로젝트를 포함합니다.
+프로그래밍이 처음인 사람이 C#의 기초를 배우고, 장마다 작은 결과를 직접 확인하며, 마지막에는 콘솔에서 실행되는 낙하 블록 게임을 완성하는 학습 저장소입니다.
 
-![Rust](https://img.shields.io/badge/Rust-2024.0-orange.svg)
-![License](https://img.shields.io/badge/License-MIT-blue.svg)
-![Status](https://img.shields.io/badge/status-active-success.svg)
+첫 번째 학습 트랙은 C#입니다. C# 트랙의 학습 흐름과 게임 동작이 충분히 검증된 뒤에 다른 언어로의 확장을 검토합니다.
 
----
+## 이 저장소가 지향하는 것
 
-## 📚 저장소 개요
+- 프로그래밍 경험이 전혀 없어도 시작할 수 있습니다.
+- 새로운 용어는 사용하기 전에 먼저 설명합니다.
+- 예제를 읽는 데서 멈추지 않고 실행 결과를 예측하고 직접 코드를 작성합니다.
+- 매 장에서 실행 가능한 결과와 자동화된 테스트를 함께 남깁니다.
+- 게임 전체는 하나의 프로젝트로 계속 발전시키되, 장별 연습은 안전하게 망가뜨리고 다시 시작할 수 있게 분리합니다.
 
-이 저장소는 Rust 프로그래밍을 처음 시작하는 학습자를 위해 구성되었습니다. 챕터별 예제 코드와 실전 프로젝트를 통해 Rust의 기초 개념부터 실전 응용까지 단계적으로 학습할 수 있습니다.
+## 왜 프로그래밍을 배우나요?
 
-### 📁 구조
+프로그래밍은 문제를 작은 단계로 나누고, 컴퓨터가 실행할 수 있는 정확한 명령으로 표현하는 방법입니다. 코드를 작성하는 과정에서 논리적으로 생각하는 법, 실패 원인을 관찰하는 법, 작은 실험으로 답을 확인하는 법을 함께 익힐 수 있습니다.
 
-```
-getting-started-rust/
-├── examples/            # 챕터별 예제 코드
-│   ├── ch01/           # 제1주: Rust 시작하기
-│   ├── ch02/           # 제2주: 변수와 기본 타입
-│   └── ...
-├── dungeon_crawler/    # 실전 프로젝트: 텍스트 RPG 게임
-├── docs/               # 강의 노트
-├── context/            # 기술적 연구 노트
-└── README.md           # 이 파일
-```
+이 저장소에서는 설명만 읽지 않습니다. 직접 실행하고, 예상과 실제 결과를 비교하고, 테스트로 동작을 확인합니다.
 
----
+## 왜 C#인가요?
 
-## 🚀 빠른 시작
+C#은 읽기 쉬운 문법과 명확한 타입 체계를 갖춘 현대적인 언어입니다. 하나의 언어로 콘솔 프로그램부터 웹, 클라우드, 데스크톱, 게임 개발까지 이어갈 수 있으며, .NET SDK를 이용하면 Windows, macOS, Linux에서 같은 명령으로 프로젝트를 만들고 실행할 수 있습니다.
 
-### 전제 조건
+이 과정은 현재 장기 지원 버전인 .NET 10과 C# 14를 기준으로 진행합니다. 언어 자체가 특정 테스트 프레임워크를 표준으로 지정하지는 않지만, 이 저장소는 간결하고 널리 사용되는 [xUnit.net](https://xunit.net/)을 선택합니다.
 
-- **Rust 1.90.0 이상**
-- **Cargo** (Rust 빌드 도구)
+더 알아보기:
 
-### Rust 설치
+- [C# 공식 가이드](https://learn.microsoft.com/dotnet/csharp/)
+- [.NET 10 SDK 다운로드](https://dotnet.microsoft.com/download/dotnet/10.0)
+- [Visual Studio Code 다운로드](https://code.visualstudio.com/download)
+- [C# Dev Kit 설치](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csdevkit)
 
-```bash
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-source $HOME/.cargo/env
-```
+## 매 장의 학습 리듬
 
-### 설치 확인
+모든 핵심 개념은 같은 네 단계를 거칩니다.
 
-```bash
-rustc --version
-cargo --version
-```
+1. **읽기**: 작동하는 작은 예제를 읽고 코드의 역할을 이해합니다.
+2. **예측**: 실행하기 전에 화면에 무엇이 나타날지 먼저 적어 봅니다.
+3. **완성**: 일부가 비어 있는 코드를 채우고 xUnit 테스트를 통과시킵니다.
+4. **창작**: 같은 개념을 사용하는 새로운 게임 문제를 스스로 해결합니다.
 
----
+단계가 진행될수록 안내와 힌트는 줄어들지만, 테스트는 끝까지 안전망으로 남습니다.
 
-## 📖 사용법
+## 저장소가 자라는 방식
 
-### 1. 챕터별 예제 실행
+다음 구조는 각 장을 구현하면서 만들어질 예정입니다.
 
-```bash
-# 예제 디렉토리로 이동
-cd examples/ch01
-
-# 전체 예제 목록 보기
-cargo run
-
-# 개별 예제 실행
-cargo run --bin 01_hello_world
-cargo run --bin 09_game_title_screen
+```text
+LetsStudyCS/
+├─ chapters/
+│  └─ 01-getting-started/
+│     ├─ examples/
+│     ├─ practice/
+│     ├─ solution/
+│     └─ tests/
+└─ game/
 ```
 
-### 2. 던전 크롤러 프로젝트
+- `chapters/`: 읽기, 예측, 완성, 창작을 위한 장별 학습 공간
+- `examples/`: 설명과 함께 읽는 완성 예제
+- `practice/`: 학습자가 직접 완성할 코드
+- `solution/`: 막혔을 때 비교할 수 있는 해답
+- `tests/`: 연습 결과를 확인하는 xUnit 테스트
+- `game/`: 2장부터 매 장 한 단계씩 발전하는 단 하나의 낙하 블록 게임
 
-```bash
-# 프로젝트 디렉토리로 이동
-cd dungeon_crawler
+게임 전체를 장마다 복제하지 않습니다. 연습과 해답은 장별로 격리해 복구하기 쉽게 만들고, 실제 게임은 하나만 유지해 이전 장의 결과가 다음 장으로 이어지게 합니다.
 
-# 게임 실행
-cargo run --release
+## 1장: C#과 첫 프로그램
+
+1장은 게임을 만들기 전에 출발점을 맞추는 온보딩 장입니다.
+
+### 배울 내용
+
+1. 프로그래밍을 배우는 이유
+2. 첫 언어로 C#을 선택한 이유
+3. .NET SDK, Visual Studio Code, C# Dev Kit 설치
+4. 터미널에서 `dotnet --version`으로 환경 확인
+5. 콘솔 프로젝트를 만들고 Hello World 실행
+6. `[Fact]`와 `Assert.Equal`을 사용한 첫 xUnit 테스트 작성
+7. `dotnet run`과 `dotnet test`의 역할 구분
+
+### 완료 기준
+
+- 자신의 말로 프로그래밍과 C#을 배우는 이유를 설명할 수 있습니다.
+- VS Code의 터미널에서 .NET SDK 버전을 확인할 수 있습니다.
+- Hello World 프로그램을 직접 실행할 수 있습니다.
+- Hello World의 결과를 검증하는 xUnit 테스트를 직접 작성할 수 있습니다.
+- 아래 두 명령이 모두 성공합니다.
+
+```shell
+dotnet run
+dotnet test
 ```
 
----
+낙하 블록 게임 구현은 2장부터 시작합니다.
 
-## 📚 커리큘럼
+## 전체 학습 로드맵
 
-### 챕터별 학습 로드맵
+전체 방향은 미리 공개하되, 세부 개념과 연습 문제는 현재 작업할 장만 구체화합니다.
 
-| 주차 | 주제 | 학습 개념 | 상태 |
-|------|------|----------|------|
-| 1 | Rust 시작하기 | Hello World, `println!`, 함수 구조 | ✅ 완료 |
-| 2 | 변수와 기본 타입 | `let`, `const`, 타입 추론, 튜플, 배열 | ✅ 완료 |
-| 3 | 연산자와 표현식 | 산술, 비교, 논리 연산자 | 🔜 예정 |
-| 4 | 제어 흐름 | `if`, `match`, `loop`, `while`, `for` | 🔜 예정 |
-| 5 | 함수 | 매개변수, 반환값, 문 vs 표현식 | 🔜 예정 |
-| 6 | 소유권 | 스택 vs 힙, 빌림, 참조자 | 🔜 예정 |
-| 7 | 구조체 | `struct`, `impl`, 메서드 | 🔜 예정 |
-| 8 | 열거형과 패턴 매칭 | `enum`, `Option<T>`, `Result<T,E>` | 🔜 예정 |
-| 9 | 컬렉션 | `Vec<T>`, `HashMap<K,V>`, `String` | 🔜 예정 |
-| 10 | 에러 처리 | `panic!`, `Result`, `unwrap`, `?` | 🔜 예정 |
-| 11 | 제네릭과 트레이트 | 타입 매개변수, 트레이트 바운드 | 🔜 예정 |
-| 12 | 알고리즘 | 정렬, 검색, 재귀 | 🔜 예정 |
-| 13-15 | 프로젝트 완성 | 통합, 테스트, 최적화 | 🔜 예정 |
+| 순서 | 마일스톤 | 눈으로 확인할 결과 |
+| --- | --- | --- |
+| 1 | C#과 첫 프로그램 | Hello World가 실행되고 첫 xUnit 테스트가 통과합니다. |
+| 2 | 게임 보드 출력 | 콘솔에 빈 게임 보드가 나타납니다. |
+| 3 | 블록 조각 | 보드 위에 한 개의 블록 조각이 나타납니다. |
+| 4 | 이동 | 입력에 따라 조각이 좌우와 아래로 움직입니다. |
+| 5 | 충돌 판정 | 벽이나 다른 블록을 통과하지 않습니다. |
+| 6 | 블록 고정 | 더 내려갈 수 없는 조각이 보드에 남습니다. |
+| 7 | 줄 제거 | 가득 찬 줄이 사라지고 위의 블록이 내려옵니다. |
+| 8 | 점수 | 줄 제거 결과가 점수에 반영됩니다. |
+| 9 | 자동 낙하 | 시간에 따라 조각이 내려가며 하나의 게임으로 동작합니다. |
 
----
+이 표는 학습 순서의 큰 뼈대입니다. 한 마일스톤이 반드시 한 장과 같지는 않으며, 실제 장을 설계할 때 초보자가 감당할 수 있는 크기로 다시 나눕니다.
 
-## 🎮 던전 크롤러 프로젝트
+## 한 장을 만드는 절차
 
-[projects/dungeon_crawler/](projects/dungeon_crawler/) - 텍스트 기반 RPG 게임
+1. 이번 장의 C# 학습 목표와 화면에서 확인할 결과를 먼저 합의합니다.
+2. 작은 완성 예제와 실행 전 예측 질문을 작성합니다.
+3. 연습 코드, 해답, xUnit 테스트를 함께 만듭니다.
+4. 학습자가 연습을 마치면 필요한 변화만 `game/`에 반영합니다.
+5. `dotnet build`와 `dotnet test`를 실행하고 문서 링크도 확인합니다.
+6. 검증이 끝난 뒤에만 다음 장을 상세화합니다.
 
-이 프로젝트는 학습한 개념들을 실전에 적용해볼 수 있는 통합 프로젝트입니다. 한 학기 동안 점진적으로 기능을 추가하며 완성해 나갑니다.
+1장처럼 게임 구현 전의 온보딩 장은 `game/`을 변경하지 않습니다.
 
-### 주요 기능
+## 다음 작업
 
-- 🏰 캐릭터 생성 및 육성
-- ⚔️ 턴 기반 전투 시스템
-- 🎒 인벤토리 관리
-- 🏪 상점 시스템
-- 🏰 던전 탐험
-- 💾 세이브/로드
-
-**[자세히 보기 →](dungeon_crawler/README.md)**
-
----
-
-## 📁 디렉토리 안내
-
-### `examples/`
-
-각 챕터의 핵심 개념을 독립적으로 실행하고 실험할 수 있는 예제 코드들입니다.
-
-```bash
-# 예제 목록 구조
-examples/
-├── ch01/              # Rust 시작하기
-│   └── src/
-│       ├── 01_hello_world.rs
-│       ├── 02_function_analysis.rs
-│       └── ...
-├── ch02/              # 변수와 기본 타입
-│   └── src/
-│       ├── 01_variables.rs
-│       ├── 02_mutability.rs
-│       └── ...
-└── README.md
-```
-
-### `dungeon_crawler/`
-
-실전 통합 프로젝트입니다. 학습한 개념들을 게임 개발에 적용해볼 수 있습니다.
-
-### `docs/`
-
-강의 노트와 이론적 배경이 정리된 문서들입니다.
-
-### `context/`
-
-각 챕터의 기술적 연구 내용과 심화 학습 자료가 포함되어 있습니다.
-
----
-
-## 🛠️ 개발 가이드
-
-### 코드 스타일
-
-이 프로젝트는 Rust 공식 스타일 가이드를 따릅니다:
-
-```rust
-// 구조체는 UpperCamelCase
-struct Player { ... }
-
-// 함수는 snake_case
-fn calculate_damage() -> i32 { ... }
-
-// 상수는 UPPER_SNAKE_CASE
-const MAX_HP: u32 = 100;
-```
-
-### 유용한 명령어
-
-```bash
-# 빌드
-cargo build
-
-# 실행
-cargo run
-
-# 테스트
-cargo test
-
-# 린트 검사
-cargo clippy
-
-# 포맷팅
-cargo fmt
-
-# 문서 생성
-cargo doc --open
-
-# 릴리즈 빌드
-cargo build --release
-
-# clean
-cargo clean
-```
-
----
-
-## 📝 라이선스
-
-이 프로젝트는 MIT 라이선스 하에 배포됩니다. 자유롭게 수정하고 배포하실 수 있습니다.
-
----
-
-## 🙋 기여 가이드
-
-기여를 환영합니다! 다음 단계를 따라주세요:
-
-1. 이 저장소를 포크합니다
-2. 기능 브랜치를 생성합니다 (`git checkout -b feature/amazing-feature`)
-3. 변경사항을 커밋합니다 (`git commit -m 'Add amazing feature'`)
-4. 브랜치에 푸시합니다 (`git push origin feature/amazing-feature`)
-5. Pull Request를 생성합니다
-
----
-
-## 📚 참고 자료
-
-### 공식 문서
-
-- [The Rust Programming Language](https://doc.rust-lang.org/book/) - "The Book"
-- [Rust by Example](https://doc.rust-lang.org/rust-by-example/) - 예제 중심 학습
-- [Rust Standard Library](https://doc.rust-lang.org/std/) - 표준 라이브러리 문서
-- [The Rust Reference](https://doc.rust-lang.org/reference/) - 언어 레퍼런스
-
-### 커뮤니티
-
-- [Rust Users Forum](https://users.rust-lang.org/)
-- [Rust Discord](https://discord.gg/rust-lang)
-- [r/rust subreddit](https://reddit.com/r/rust)
-
-### 도구
-
-- [Rust Playground](https://play.rust-lang.org/) - 온라인 Rust 실행 환경
-- [Cargo Docs](https://doc.rust-lang.org/cargo/) - 패키지 매니저 문서
-
----
-
-## 📮 연락처
-
-이 프로젝트에 관한 문의나 버그 리포트는 GitHub Issues를 통해 제출해주세요.
-
----
-
-*Happy Rustacean! 🦀*
-
-**© 2024. All rights reserved.**
+이 README를 프로젝트의 학습 계약으로 삼고, 다음 작업에서 1장의 상세 목차와 예제·연습·해답·xUnit 테스트를 설계한 뒤 구현합니다.
