@@ -1,3 +1,11 @@
 <Solution>
-  <Project Path="chapters/01-getting-started/examples/HelloWorld/HelloWorld.csproj" />
+  <Folder Name="/Examples/">
+    <Project Path="chapters/01-getting-started/examples/HelloWorld/HelloWorld.csproj" />
+  </Folder>
+  <Folder Name="/Solution/">
+    <Project Path="chapters/01-getting-started/solution/HelloWorld/HelloWorld.csproj" />
+  </Folder>
+  <Folder Name="/Tests/">
+    <Project Path="chapters/01-getting-started/tests/HelloWorld.Solution.Tests/HelloWorld.Solution.Tests.csproj" />
+  </Folder>
 </Solution>

@@ -280,6 +280,12 @@ Hello, World!
 | 빌드 오류가 보임 | 큰따옴표와 세미콜론을 지우지 않았는지 확인합니다. |
 | 고친 뒤에도 실패함 | 테스트의 기대값과 `Greeting.cs`의 인사말이 한 글자까지 같은지 확인합니다. |
 
+먼저 직접 시도한 뒤에도 막힌다면 [정답의 `Greeting.cs`](solution/HelloWorld/Greeting.cs)와 [정답 테스트](tests/HelloWorld.Solution.Tests/GreetingTests.cs)를 같은 역할의 연습 파일과 비교하세요. 정답 프로젝트는 다음 명령으로 따로 확인할 수 있습니다.
+
+```shell
+dotnet test chapters/01-getting-started/tests/HelloWorld.Solution.Tests/HelloWorld.Solution.Tests.csproj
+```
+
 `class`, `public`, `static`, 메서드의 자세한 뜻은 지금 외우지 않아도 됩니다. 테스트할 수 있도록 미리 준비된 “인사말 만드는 기능”이라고만 이해하고, 표시된 인사말 한 줄에 집중하세요.
 
 ## 1장 완료 체크
