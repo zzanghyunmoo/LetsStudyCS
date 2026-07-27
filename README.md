@@ -80,16 +80,17 @@ LetsStudyCS/
 2. 첫 언어로 C#을 선택한 이유
 3. .NET SDK, Visual Studio Code, C# Dev Kit 설치
 4. 터미널에서 `dotnet --version`으로 환경 확인
-5. 콘솔 프로젝트를 만들고 Hello World 실행
-6. `[Fact]`와 `Assert.Equal`을 사용한 첫 xUnit 테스트 읽기와 완성
-7. `dotnet run`과 `dotnet test`의 역할 구분
+5. 빈 폴더에서 콘솔 프로젝트를 만들고 Hello World 실행
+6. xUnit 테스트 프로젝트를 만들고 콘솔 프로젝트 참조 추가
+7. `[Fact]`와 `Assert.Equal`을 사용한 첫 테스트 작성과 RED-GREEN
+8. `dotnet run`과 `dotnet test`의 역할 구분
 
 ### 완료 기준
 
 - 자신의 말로 프로그래밍과 C#을 배우는 이유를 설명할 수 있습니다.
 - VS Code의 터미널에서 .NET SDK 버전을 확인할 수 있습니다.
-- Hello World 프로그램을 직접 실행할 수 있습니다.
-- 실패하는 테스트의 예상값과 실제값을 읽고 한 줄을 고쳐 통과시킬 수 있습니다.
+- 빈 폴더에서 Hello World 앱과 xUnit 테스트 프로젝트를 직접 만들 수 있습니다.
+- 테스트가 앱을 참조하도록 연결하고, 예상값과 실제값을 읽어 RED를 GREEN으로 바꿀 수 있습니다.
 - 아래 명령으로 완성 예제와 루트 테스트가 모두 성공합니다.
 
 ```shell

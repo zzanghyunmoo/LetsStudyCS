@@ -10,7 +10,8 @@
 - C#과 .NET이 각각 무엇인지 구분합니다.
 - .NET 10 SDK, Visual Studio Code, C# Dev Kit을 준비합니다.
 - 터미널에서 `dotnet` 명령을 실행합니다.
-- `Hello, World!` 프로그램을 예측하고 실행합니다.
+- 콘솔 앱과 xUnit 테스트 프로젝트를 빈 폴더에서 직접 만듭니다.
+- 직접 작성한 `Hello, World!` 프로그램을 예측하고 실행합니다.
 - 아직 배우지 않은 문법을 만나도 제공된 안내를 따라 실행 결과를 확인합니다.
 
 > 변수, 조건문, 반복문과 게임 구현은 2장부터 시작합니다.
@@ -110,27 +111,53 @@ dotnet --version
 
 버전이 `10.0`으로 시작하지 않는다면 .NET 10 SDK를 설치한 뒤 다시 확인합니다.
 
-## 6. 콘솔 프로젝트는 무엇인가요?
+## 6. 빈 실습 폴더 준비
 
-**프로젝트**는 프로그램을 만드는 데 필요한 코드와 설정을 한곳에 모은 폴더입니다.
+**프로젝트**는 프로그램을 만드는 데 필요한 코드와 설정을 한곳에 모은 폴더입니다. 이제 준비된 파일을 열어 보기만 하지 않고, 콘솔 앱과 테스트 프로젝트를 처음부터 직접 만듭니다.
 
-**콘솔 프로그램**은 터미널에서 글자를 입력받거나 출력하는 프로그램입니다. 첫 프로젝트를 직접 만들어 보고 싶다면 학습 저장소 밖의 빈 폴더에서 다음 명령을 차례로 실행할 수 있습니다.
+기존 `LetsStudyCS` 저장소의 연습 파일을 덮어쓰지 않도록 Windows 파일 탐색기나 운영체제의 파일 관리자에서 저장소 밖 원하는 위치에 `LetsStudyCS-Chapter1`이라는 빈 폴더를 하나 만드세요. 현재 가이드를 열어 둔 창은 그대로 두고 Visual Studio Code에서 **File → New Window**를 선택합니다. 새 창에서 **File → Open Folder**로 방금 만든 폴더를 연 다음 **Terminal → New Terminal**을 선택합니다.
+
+이 절부터 모든 명령은 방금 연 빈 폴더에서 실행합니다. 명령 앞에 보이는 폴더 경로나 `$`, `>` 같은 프롬프트 문자는 입력하지 않습니다.
+
+새 폴더는 저장소의 .NET 10 설정을 자동으로 이어받지 않습니다. 다음 명령으로 이 실습 폴더가 .NET 10 SDK를 선택하게 만들고, 실제 선택된 버전을 다시 확인합니다.
 
 ```shell
-mkdir MyFirstCSharp
-cd MyFirstCSharp
-dotnet new console
-dotnet run
+dotnet new globaljson --sdk-version 10.0.100 --roll-forward latestFeature
+dotnet --version
 ```
 
-- `dotnet new console`은 새 콘솔 프로젝트를 만듭니다.
-- `dotnet run`은 현재 프로젝트를 빌드하고 실행합니다.
+첫 명령은 실습 폴더에 SDK 선택 파일 `global.json`을 만듭니다. 두 번째 명령에 표시된 전체 버전을 메모하고, 결과가 `10.0`으로 시작해야 다음 단계로 진행할 수 있습니다. `latestFeature`는 설치된 .NET 10 중 더 최신 기능 밴드와 패치를 선택할 수 있습니다.
 
-이제 저장소에 준비된 같은 형태의 예제를 읽고 실행해 봅니다.
+## 7. 콘솔 앱 만들기
 
-## 7. 읽기: 첫 C# 코드
+**콘솔 프로그램**은 터미널에서 글자를 입력받거나 출력하는 프로그램입니다. 다음 명령은 `chapters/01-getting-started/practice/HelloWorld` 경로를 만들고 그 안에 .NET 10 콘솔 프로젝트를 생성합니다.
 
-[첫 예제의 `Program.cs`](examples/HelloWorld/Program.cs)를 열어 보세요.
+```shell
+dotnet new console --output chapters/01-getting-started/practice/HelloWorld --framework net10.0
+```
+
+- `dotnet new console`은 콘솔 프로젝트를 만듭니다.
+- `--output` 뒤의 경로는 프로젝트를 만들 위치입니다.
+- `--framework net10.0`은 이 프로젝트가 .NET 10을 사용하게 합니다.
+
+왼쪽 Explorer에서 다음 두 파일이 생겼는지 확인합니다.
+
+```text
+LetsStudyCS-Chapter1/
+├─ global.json
+└─ chapters/
+   └─ 01-getting-started/
+      └─ practice/
+         └─ HelloWorld/
+            ├─ HelloWorld.csproj
+            └─ Program.cs
+```
+
+`HelloWorld.csproj`는 프로젝트 설정 파일입니다. 지금은 직접 고치지 않습니다.
+
+## 8. 읽고 예측하기
+
+방금 만들어진 `Program.cs`를 열면 다음 한 줄이 있습니다.
 
 ```csharp
 Console.WriteLine("Hello, World!");
@@ -142,22 +169,20 @@ Console.WriteLine("Hello, World!");
 - `WriteLine`은 글자를 출력하고 다음 줄로 이동하라는 동작입니다.
 - `"Hello, World!"`는 화면에 보여 줄 글자입니다.
 
-.NET 10 콘솔 템플릿은 이렇게 바로 실행할 코드를 적는 **top-level statements** 형태를 사용합니다. `Main`, 클래스, 네임스페이스는 나중에 필요해질 때 배웁니다.
+.NET 10 콘솔 템플릿은 이렇게 바로 실행할 코드를 적는 **top-level statements** 형태를 사용합니다. `Main`, 클래스, 네임스페이스의 자세한 뜻은 나중에 배웁니다.
 
-## 8. 예측하기
-
-아직 실행하지 말고 다음 질문에 먼저 답해 보세요.
+아직 실행하지 말고 먼저 답해 보세요.
 
 > 이 프로그램을 실행하면 터미널에 정확히 어떤 한 줄이 나타날까요?
 
 종이나 메모장에 예상 결과를 적은 다음 실제 결과와 비교합니다.
 
-## 9. 실행하기
+## 9. 직접 만든 앱 실행하기
 
-터미널이 저장소 루트인 `LetsStudyCS` 폴더를 가리키는지 확인한 뒤 다음 명령을 실행합니다.
+빈 실습 폴더의 터미널에서 다음 명령을 실행합니다.
 
 ```shell
-dotnet run --project chapters/01-getting-started/examples/HelloWorld/HelloWorld.csproj
+dotnet run --project chapters/01-getting-started/practice/HelloWorld/HelloWorld.csproj
 ```
 
 정확한 결과는 다음 한 줄입니다.
@@ -166,44 +191,105 @@ dotnet run --project chapters/01-getting-started/examples/HelloWorld/HelloWorld.
 Hello, World!
 ```
 
-예상과 같았나요? 다르다면 코드를 다시 읽고 큰따옴표 안의 글자, 쉼표, 느낌표를 하나씩 비교해 보세요.
+예상과 같았나요? 다르다면 `Program.cs`의 큰따옴표 안 글자, 쉼표, 느낌표를 한 글자씩 비교해 보세요.
 
-## 10. 막혔을 때
+이 코드가 저장소의 완성 예제와 같은지 [예제 `Program.cs`](examples/HelloWorld/Program.cs)에서 비교할 수 있습니다.
 
-| 관찰한 문제 | 먼저 확인할 것 |
-| --- | --- |
-| `dotnet` 명령을 찾지 못함 | .NET **SDK** 설치 여부와 새 터미널을 열었는지 확인합니다. |
-| 프로젝트 파일을 찾지 못함 | 터미널이 저장소 루트에 있는지 확인합니다. |
-| SDK 버전이 맞지 않음 | `dotnet --version`이 `10.0`으로 시작하는지 확인합니다. |
-| VS Code가 C# 프로젝트를 인식하지 못함 | C# Dev Kit 설치 여부를 확인하고 저장소 루트를 다시 엽니다. |
-| 예상과 출력이 다름 | `Program.cs`의 큰따옴표 안 글자를 예상과 한 글자씩 비교합니다. |
+## 10. xUnit 테스트 프로젝트 만들기
 
-오류 메시지는 실패의 낙인이 아니라 현재 무엇을 확인해야 하는지 알려 주는 관찰 결과입니다.
+**테스트**는 프로그램이 약속한 결과를 만드는지 코드로 확인하는 작은 점검입니다. 이 저장소는 C# 테스트 프레임워크로 **xUnit**을 사용합니다.
 
-## 지금까지 확인할 것
+같은 빈 실습 폴더의 터미널에서 다음 명령을 실행합니다.
 
-- [ ] 프로그래밍으로 해결할 수 있는 일상 문제 하나를 말할 수 있습니다.
-- [ ] C#은 언어이고 .NET은 만들고 실행하는 도구와 환경이라고 구분할 수 있습니다.
-- [ ] 이 과정이 C#을 선택한 이유 하나를 말할 수 있습니다.
-- [ ] `dotnet --version` 결과가 `10.0`으로 시작합니다.
-- [ ] 실행 전에 Hello World의 출력을 예측했습니다.
-- [ ] 저장소의 예제를 실행해 `Hello, World!`를 확인했습니다.
+```shell
+dotnet new xunit --output chapters/01-getting-started/tests/HelloWorld.Practice.Tests --framework net10.0
+```
 
-다음 단계에서는 프로그램의 동작을 테스트로 확인하고, 실패하는 테스트를 직접 통과시켜 봅니다.
+처음 실행할 때는 xUnit 패키지를 내려받느라 잠시 걸릴 수 있습니다. 완료되면 다음 구조가 추가됩니다.
 
-## 11. 테스트는 무엇인가요?
+```text
+LetsStudyCS-Chapter1/
+├─ global.json
+└─ chapters/
+   └─ 01-getting-started/
+      ├─ practice/
+      │  └─ HelloWorld/
+      │     ├─ HelloWorld.csproj
+      │     └─ Program.cs
+      └─ tests/
+         └─ HelloWorld.Practice.Tests/
+            ├─ HelloWorld.Practice.Tests.csproj
+            └─ UnitTest1.cs
+```
 
-**테스트**는 프로그램이 약속한 결과를 만드는지 코드로 확인하는 작은 점검입니다. 사람이 매번 화면을 읽어 판단하는 대신, 실행할 때마다 같은 기준을 자동으로 확인할 수 있습니다.
+`dotnet new xunit`은 테스트 프로젝트와 예제 테스트 파일 `UnitTest1.cs`를 함께 만듭니다. 곧 이 파일을 우리가 사용할 이름과 내용으로 바꿉니다.
 
-이 저장소는 C# 테스트 프레임워크로 **xUnit**을 사용합니다. 첫 테스트는 이미 준비되어 있으므로 새로운 문법을 외울 필요가 없습니다. 이번에는 테스트를 읽고, 실패 이유를 관찰하고, 인사말을 완성하는 데 집중합니다.
+## 11. 테스트 프로젝트와 앱 연결하기
 
-[첫 테스트](tests/HelloWorld.Practice.Tests/GreetingTests.cs)는 다음과 같습니다.
+테스트가 앱의 코드를 사용하려면 두 프로젝트를 연결해야 합니다. 다음 명령을 한 줄로 입력합니다.
+
+```shell
+dotnet add chapters/01-getting-started/tests/HelloWorld.Practice.Tests/HelloWorld.Practice.Tests.csproj reference chapters/01-getting-started/practice/HelloWorld/HelloWorld.csproj
+```
+
+명령을 왼쪽부터 읽으면 “테스트 프로젝트에 앱 프로젝트 참조를 추가한다”는 뜻입니다. **프로젝트 참조**는 테스트 프로젝트가 앱의 코드를 사용할 수 있게 만드는 연결입니다.
+
+연결을 확인하려면 다음 명령을 실행합니다.
+
+```shell
+dotnet list chapters/01-getting-started/tests/HelloWorld.Practice.Tests/HelloWorld.Practice.Tests.csproj reference
+```
+
+결과에 다음 상대 경로가 보이면 연결된 것입니다.
+
+```text
+..\..\practice\HelloWorld\HelloWorld.csproj
+```
+
+운영체제에 따라 경로 구분자가 `\` 대신 `/`로 보일 수 있습니다.
+
+## 12. 테스트할 수 있는 인사말 코드 만들기
+
+이제 자동 생성된 한 줄짜리 앱을 테스트할 수 있는 모양으로 바꿉니다.
+
+### 12-1. `Greeting.cs` 만들기
+
+Explorer에서 `chapters/01-getting-started/practice/HelloWorld` 폴더를 선택한 뒤 **New File**을 눌러 `Greeting.cs`를 만듭니다. 다음 코드를 처음부터 끝까지 입력하고 저장합니다.
 
 ```csharp
-[Fact]
-public void CreateMessage_returns_hello_world()
+public static class Greeting
 {
-    Assert.Equal("Hello, World!", Greeting.CreateMessage());
+    public static string CreateMessage()
+    {
+        return "";
+    }
+}
+```
+
+지금은 `class`, `public`, `static`, `string`, 메서드 문법을 외우지 않아도 됩니다. 이 코드는 “인사말을 만들어 돌려주는 기능”의 모양입니다. 아직 큰따옴표 안이 비어 있으므로 빈 글자를 돌려줍니다.
+
+### 12-2. `Program.cs` 바꾸기
+
+같은 폴더의 `Program.cs` 내용을 모두 지우고 다음 한 줄을 입력한 뒤 저장합니다.
+
+```csharp
+Console.WriteLine(Greeting.CreateMessage());
+```
+
+이제 앱은 `Program.cs`에 인사말을 직접 적지 않고 `Greeting.CreateMessage()`가 만든 결과를 출력합니다.
+
+## 13. 첫 xUnit 테스트 직접 작성하기
+
+Explorer에서 `chapters/01-getting-started/tests/HelloWorld.Practice.Tests/UnitTest1.cs`의 이름을 `GreetingTests.cs`로 바꿉니다. 파일 내용을 모두 지우고 다음 코드를 처음부터 끝까지 입력한 뒤 저장합니다.
+
+```csharp
+public class GreetingTests
+{
+    [Fact]
+    public void CreateMessage_returns_hello_world()
+    {
+        Assert.Equal("Hello, World!", Greeting.CreateMessage());
+    }
 }
 ```
 
@@ -212,44 +298,68 @@ public void CreateMessage_returns_hello_world()
 - `[Fact]`는 xUnit에게 “이 동작을 테스트로 실행해 주세요”라고 알려 줍니다.
 - `Assert.Equal(expected, actual)`은 기대한 값과 실제 값을 비교합니다.
 
-이 테스트에서 expected는 `"Hello, World!"`이고 actual은 앱이 만든 인사말입니다.
+이 테스트에서 expected는 `"Hello, World!"`이고 actual은 직접 만든 앱의 `Greeting.CreateMessage()` 결과입니다.
 
-## 12. 완성하기: 먼저 실패 확인
+여기까지 입력하면 저장소의 연습 코드와 같은 구조가 됩니다.
 
-저장소 루트에서 다음 명령을 실행합니다.
+```text
+LetsStudyCS-Chapter1/
+├─ global.json
+└─ chapters/
+   └─ 01-getting-started/
+      ├─ practice/
+      │  └─ HelloWorld/
+      │     ├─ Greeting.cs
+      │     ├─ HelloWorld.csproj
+      │     └─ Program.cs
+      └─ tests/
+         └─ HelloWorld.Practice.Tests/
+            ├─ GreetingTests.cs
+            └─ HelloWorld.Practice.Tests.csproj
+```
+
+비교가 필요하면 저장소의 [연습 `Program.cs`](practice/HelloWorld/Program.cs), [연습 `Greeting.cs`](practice/HelloWorld/Greeting.cs), [연습 테스트](tests/HelloWorld.Practice.Tests/GreetingTests.cs)를 차례로 확인하세요.
+
+## 14. 완성하기: 먼저 RED 확인
+
+빈 실습 폴더의 터미널에서 다음 명령을 실행합니다.
 
 ```shell
 dotnet test chapters/01-getting-started/tests/HelloWorld.Practice.Tests/HelloWorld.Practice.Tests.csproj
 ```
 
-처음에는 **실패하는 것이 정상**입니다. 설정 오류가 아니라 다음 차이가 보여야 합니다.
+처음에는 **실패하는 것이 정상**입니다. 프로젝트 생성이나 연결 오류가 아니라 테스트 한 개가 실행되고 다음 차이가 보여야 합니다.
 
 ```text
 Expected: "Hello, World!"
 Actual:   ""
 ```
 
-테스트는 `Hello, World!`를 기대하지만, 연습 코드가 아직 빈 글자를 돌려주기 때문입니다.
+테스트는 `Hello, World!`를 기대하지만, 직접 만든 `Greeting.cs`가 아직 빈 글자를 돌려주기 때문입니다. 이렇게 기대와 실제가 다르다는 올바른 이유로 실패한 상태를 **RED**라고 부릅니다.
 
-[연습용 `Greeting.cs`](practice/HelloWorld/Greeting.cs)를 열어 다음 줄을 찾습니다.
+## 15. 한 줄을 완성해 GREEN 만들기
+
+직접 만든 `chapters/01-getting-started/practice/HelloWorld/Greeting.cs`에서 다음 줄을 찾습니다.
 
 ```csharp
 return "";
 ```
 
-큰따옴표 안을 완성합니다.
+큰따옴표 안을 완성하고 저장합니다.
 
 ```csharp
 return "Hello, World!";
 ```
 
-테스트를 다시 실행합니다.
+같은 테스트를 다시 실행합니다.
 
 ```shell
 dotnet test chapters/01-getting-started/tests/HelloWorld.Practice.Tests/HelloWorld.Practice.Tests.csproj
 ```
 
-이번에는 테스트 한 개가 통과해야 합니다. 앱도 실행해 같은 결과를 확인합니다.
+이번에는 테스트 한 개가 통과해야 합니다. 올바른 구현으로 테스트가 통과한 상태를 **GREEN**이라고 부릅니다.
+
+직접 만든 앱도 실행합니다.
 
 ```shell
 dotnet run --project chapters/01-getting-started/practice/HelloWorld/HelloWorld.csproj
@@ -259,46 +369,52 @@ dotnet run --project chapters/01-getting-started/practice/HelloWorld/HelloWorld.
 Hello, World!
 ```
 
-## 13. 직접 만들기: 나만의 인사말
+## 16. 직접 만들기: 나만의 인사말
 
-이번에는 red-green 순서를 스스로 한 번 더 만듭니다. 두 파일을 동시에 바꾸지 말고 다음 순서를 지키세요.
+이번에는 RED-GREEN 순서를 스스로 한 번 더 만듭니다. 두 파일을 동시에 바꾸지 말고 다음 순서를 지키세요.
 
-1. `GreetingTests.cs`에서 기대값만 `"Hello, C#!"`처럼 자신의 인사말로 바꿉니다.
-2. 테스트를 실행해 실제 값과 달라서 다시 실패하는지 확인합니다. 이것이 red입니다.
-3. `Greeting.cs`의 인사말을 같은 문장으로 바꿉니다.
-4. 테스트를 다시 실행해 통과하는지 확인합니다. 이것이 green입니다.
+1. 직접 만든 `GreetingTests.cs`에서 기대값만 `"Hello, C#!"`처럼 자신의 인사말로 바꿉니다.
+2. 테스트를 실행해 실제 값과 달라서 다시 실패하는지 확인합니다. 이것이 RED입니다.
+3. 직접 만든 `Greeting.cs`의 인사말을 같은 문장으로 바꿉니다.
+4. 테스트를 다시 실행해 통과하는지 확인합니다. 이것이 GREEN입니다.
 5. 연습 앱을 실행해 자신의 인사말이 출력되는지 확인합니다.
 
 테스트를 먼저 바꾸고 실패를 확인해야 테스트가 실제로 새 약속을 검사하는지 알 수 있습니다.
 
-## 14. 테스트에서 막혔을 때
+## 17. 막혔을 때
 
 | 관찰한 문제 | 먼저 확인할 것 |
 | --- | --- |
-| 테스트가 발견되지 않음 | 명령에 `HelloWorld.Practice.Tests.csproj` 경로를 사용했는지 확인합니다. |
-| 기대값 불일치 한 개가 보임 | 처음 실행이라면 정상입니다. expected와 actual을 비교합니다. |
-| 빌드 오류가 보임 | 큰따옴표와 세미콜론을 지우지 않았는지 확인합니다. |
-| 고친 뒤에도 실패함 | 테스트의 기대값과 `Greeting.cs`의 인사말이 한 글자까지 같은지 확인합니다. |
+| `dotnet` 명령을 찾지 못함 | .NET **SDK** 설치 여부와 새 터미널을 열었는지 확인합니다. |
+| 프로젝트 파일을 찾지 못함 | 터미널이 `LetsStudyCS-Chapter1` 빈 실습 폴더를 가리키는지, 명령의 전체 경로를 입력했는지 확인합니다. |
+| xUnit 패키지를 복원하지 못함 | 인터넷 연결을 확인한 뒤 `dotnet restore chapters/01-getting-started/tests/HelloWorld.Practice.Tests/HelloWorld.Practice.Tests.csproj`를 실행합니다. |
+| `Greeting`을 찾을 수 없다는 빌드 오류 | `Greeting.cs`가 `practice/HelloWorld` 폴더 안에 있는지, 코드 전체를 저장했는지 확인합니다. |
+| 테스트 프로젝트에서 앱 코드를 찾지 못함 | 11절의 `dotnet add ... reference ...` 명령과 `dotnet list ... reference` 결과를 확인합니다. |
+| `UnitTest1` 테스트도 함께 실행됨 | 파일 이름만 새로 만들지 말고 기존 `UnitTest1.cs`의 이름을 `GreetingTests.cs`로 바꿨는지 확인합니다. |
+| 기대값 불일치 한 개가 보임 | 첫 실행이라면 정상입니다. expected와 actual을 비교합니다. |
+| 고친 뒤에도 실패함 | 테스트의 기대값과 `Greeting.cs`의 인사말이 쉼표와 느낌표까지 같은지 확인합니다. |
 
-먼저 직접 시도한 뒤에도 막힌다면 [정답의 `Greeting.cs`](solution/HelloWorld/Greeting.cs)와 [정답 테스트](tests/HelloWorld.Solution.Tests/GreetingTests.cs)를 같은 역할의 연습 파일과 비교하세요. 정답 프로젝트는 다음 명령으로 따로 확인할 수 있습니다.
+오류 메시지는 실패의 낙인이 아니라 현재 무엇을 확인해야 하는지 알려 주는 관찰 결과입니다.
+
+먼저 직접 시도한 뒤에도 막힌다면 저장소의 [정답 `Greeting.cs`](solution/HelloWorld/Greeting.cs)와 [정답 테스트](tests/HelloWorld.Solution.Tests/GreetingTests.cs)를 같은 역할의 실습 파일과 비교하세요. 저장소를 연 터미널에서는 다음 명령으로 정답 테스트를 따로 확인할 수 있습니다.
 
 ```shell
 dotnet test chapters/01-getting-started/tests/HelloWorld.Solution.Tests/HelloWorld.Solution.Tests.csproj
 ```
-
-`class`, `public`, `static`, 메서드의 자세한 뜻은 지금 외우지 않아도 됩니다. 테스트할 수 있도록 미리 준비된 “인사말 만드는 기능”이라고만 이해하고, 표시된 인사말 한 줄에 집중하세요.
 
 ## 1장 완료 체크
 
 - [ ] 프로그래밍으로 해결할 수 있는 일상 문제 하나를 설명했습니다.
 - [ ] C#과 .NET의 차이와 이 과정이 C#을 선택한 이유 하나를 설명했습니다.
 - [ ] `dotnet --version`에서 .NET 10 SDK를 확인했습니다.
+- [ ] 빈 폴더에서 콘솔 앱과 xUnit 테스트 프로젝트를 직접 만들었습니다.
+- [ ] 프로젝트 참조를 추가하고 앱 코드와 테스트 코드를 처음부터 입력했습니다.
 - [ ] 실행 전에 Hello World 출력을 예측하고 실제 결과와 비교했습니다.
-- [ ] 제공된 `[Fact]`와 `Assert.Equal` 테스트를 읽었습니다.
-- [ ] 의도된 실패를 확인한 뒤 인사말을 완성해 테스트를 통과시켰습니다.
-- [ ] 나만의 인사말로 red-green을 한 번 더 만들었습니다.
+- [ ] `[Fact]`와 `Assert.Equal` 테스트를 직접 작성했습니다.
+- [ ] 의도된 RED를 확인한 뒤 인사말을 완성해 GREEN으로 만들었습니다.
+- [ ] 나만의 인사말로 RED-GREEN을 한 번 더 만들었습니다.
 
-이제 코드를 실행하고 테스트로 확인하는 방법을 알았습니다. 2장부터는 값과 변수를 배우며 낙하 블록 게임의 첫 상태를 표현합니다.
+이제 빈 폴더에서 C# 앱과 테스트 프로젝트를 만들고, 코드를 실행하고, 테스트로 확인하는 방법을 알았습니다. 2장부터는 값과 변수를 배우며 낙하 블록 게임의 첫 상태를 표현합니다.
 
 ## 공식 참고 자료
 

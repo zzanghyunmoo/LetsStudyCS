@@ -24,7 +24,7 @@ tags:
 
 A red-green exercise has two valid states that cannot both be committed in the same file: the learner needs an initial failure, while maintainers need a trustworthy green repository baseline.
 
-Chapter 1 keeps the initial failure real. The practice greeting returns an empty string (`chapters/01-getting-started/practice/HelloWorld/Greeting.cs:5`), while its xUnit test expects `Hello, World!` (`chapters/01-getting-started/tests/HelloWorld.Practice.Tests/GreetingTests.cs:6`). The guide labels that single mismatch as the expected starting state before the learner edits anything (`chapters/01-getting-started/README.md:217-250`).
+Chapter 1 keeps the initial failure real. The practice greeting returns an empty string (`chapters/01-getting-started/practice/HelloWorld/Greeting.cs:5`), while its xUnit test expects `Hello, World!` (`chapters/01-getting-started/tests/HelloWorld.Practice.Tests/GreetingTests.cs:6`). The guide labels that single mismatch as the expected starting state before the learner edits anything (`chapters/01-getting-started/README.md:323-338`).
 
 The root solution serves a different purpose. It includes the completed example, reference solution, and solution test only (`LetsStudyCS.slnx:2-10`), so a normal root build or test does not silently turn the exercise red.
 
@@ -105,7 +105,7 @@ A maintainer copies the practice app and practice test into a temporary tree, pr
 
 ### Learner-owned second cycle
 
-After the first GREEN, the chapter asks the learner to change the expected value first, observe RED again, then change the implementation and observe GREEN (`chapters/01-getting-started/README.md:262-272`). This expectation-first order proves that the test is enforcing the learner's new promise rather than merely following an implementation that was already changed.
+After the first GREEN, the chapter asks the learner to change the expected value first, observe RED again, then change the implementation and observe GREEN (`chapters/01-getting-started/README.md:372-382`). This expectation-first order proves that the test is enforcing the learner's new promise rather than merely following an implementation that was already changed.
 
 ## Related
 
